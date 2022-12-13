@@ -82,7 +82,9 @@
                   <div class="numbers mt-2">
                     <p class="text-lg mb-0 text-uppercase font-weight-bolder">Murid</p>
                     <h5 class="font-weight-bolder">
-                      867
+                   
+                          {{count($murid)}}
+                    
                     </h5>
                   </div>
                 </div>
@@ -170,6 +172,7 @@
                       <tr>
                         <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">No</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Nurid</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kelas</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pelanggaran</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Point</th>
                         <th class="text-uppercase text-xxs text-center font-weight-bolder opacity-7">Opsi</th>
@@ -178,8 +181,10 @@
                     <tbody>
                       @php
                           $no = 1;
-                      @endphp
-                      @foreach ($muridpelanggaran as $mk)
+                      @endphp     
+                     @foreach ($kasus as $k)
+                     @foreach ($k->kasusmurid as $m)
+                     @foreach ($k->kasuspelanggaran as $p)
                       <tr>
                         <td class="">
                           <p class="align-middle text-center text-xs">{{ $no++ }}</p>
@@ -188,33 +193,39 @@
                          
                             </div>
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-xs">
-                                {{ $mk -> RelasiToMurid  ->  nama_murid }}
-                              </h6>
+                              <h6 class="mb-0 text-xs">{{$m->nama_murid}}</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                         
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-xs">{{$m->RelasiToKelas->kelas}}</h6>
                             </div>
                           </div>
                         </td>
       
           
                         <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold">
-                            
-                            {{ $mk -> RelasiToPelanggaran -> pelanggaran ??'belumterelasi' }}</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$p->pelanggaran}}</span>
                             
                         </td>
                         
                         <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $mk -> RelasiToPelanggaran -> point ??'belumterelasi' }}</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$p->point}}</span>
                         </td>
 
                         <td class="align-middle text-center">
-                          <button type="button" data-bs-toggle="modal" data-bs-target="#updatedatakasus" data-nama_murid="{{ $mk -> RelasiToMurid -> nama_murid }}" data-pelanggaran="{{ $mk -> RelasiToPelanggaran -> pelanggaran }}" data-id="{{ $mk->id }}" style="border: none; background-color: transparent;">
+                          <button type="button" data-bs-toggle="modal" data-bs-target="#updatedatakasus" style="border: none; background-color: transparent;">
                             <a class="btn btn-link text-dark px-3 mb-0" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
                           </button>
                           
-                          <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{{ url('/pelanggaran/delete', $mk->id) }}"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                          <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{{ url('/datakasus/delete',$k->id) }}"><i class="far fa-trash-alt me-2"></i>Delete</a>
                         </td>
                       </tr>
+                      @endforeach    
+                      @endforeach    
                       @endforeach
                     </tbody>
                   </table>

@@ -13,9 +13,9 @@
                   <div class="form-group row">
                     <label class="col-sm-10 col-form-label">Nama Murid</label>
                     <div class="col-sm-9">
-                      <select name="nama_murid" id="nama_murid">
+                      <select name="nama" id="">
                         @foreach ($murid as $m)
-                          <option value="{{ $m->id }}">{{ $m-> nama_murid }}</option>
+                          <option value="{{ $m-> id }}">{{ $m-> nama_murid }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -26,32 +26,25 @@
                   <div class="form-group row">
                     <label class="col-sm-10 col-form-label">Pelanggaran</label>
                     <div class="col-sm-9">
-                      <select name="pelanggaran" id="pelanggaran">
+                      <select name="pel" id="pelanggaran">
                         @foreach ($pelanggaran as $p)
-                          <option value="{{ $p->id }}">{{ $p-> pelanggaran }}</option>
+                          <option value="{{$p-> id}}">{{ $p-> pelanggaran }}</option>
                           @endforeach
                       </select>
                     </div>
                   </div>
                 </div>
-                
-                
-                
               </div>
+            
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group row">
-                    <label class="col-sm-10 col-form-label">Point</label>
-                    <div class="col-sm-9">
-                      <select name="point" id="point">
-                        @foreach ($pelanggaran as $p)
-                          <option value="{{ $p->id }}">{{ $p-> point }}</option>
-                          @endforeach
-                      </select>
+                    <div class="form-group row">
+                      <label class="col-sm-10 col-form-label">Tanggal</label>
+                      <div class="col-sm-9">
+                        <input type="datetime-local" class="form-control" id="" name="tanggal" placeholder="example : X PPLG 1" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                
                 
               </div>
               {{-- <div class="row">

@@ -18,7 +18,7 @@ class MuridController extends Controller
     {
         
 
-        $murid = murid::with('RelasiToKelas')->get();
+        $murid = murid::with(['RelasiToKelas'])->get();
         $kelasmurid = kelas::all();
         // $murid = murid::with('RelasiToKelas')->get();
         // dd($kelas);
@@ -54,6 +54,7 @@ class MuridController extends Controller
             'password' => $request -> password,
             'kelas_id' => $request -> kelas_id,
             'guru_id' => $request -> guru_id,
+            'point' => 0,
         ]);
 
         return redirect('/murid')->with('toast_succes', 'Data Berhasil ditambah');

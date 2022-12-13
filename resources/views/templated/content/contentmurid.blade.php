@@ -130,6 +130,9 @@
                         </span>
                       </td>
                       <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{ $m -> point }}</span>
+                      </td>
+                      <td class="align-middle text-center">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#updatemurid" data-murid="{{ $m->murid }}" data-kelas="{{ $m->kelas }}" data-nisn="{{ $m->nisn }}" data-jenis_kelamin="{{ $m->jenis_kelamin }}" data-alamat="{{ $m->alamat }}" data-no_telp="{{ $m->no_telp }}" data-email="{{ $m->email }}" data-password="{{ $m->password }}" data-guru_id="{{ $m->guru_id }}" style="border: none; background-color: transparent;">
                           <a class="btn btn-link text-dark px-3 mb-0" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
                         </button>

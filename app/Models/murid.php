@@ -11,18 +11,16 @@ class murid extends Model
     public $table = "murid";
     protected $primarykey = "id";
     protected $fillable = [
-        'nama_murid', 'kelas_id', 'nisn', 'jenis_kelamin', 'alamat', 'no_telp', 'email', 'password', 
+        'nama_murid', 'kelas_id', 'nisn', 'jenis_kelamin', 'alamat', 'no_telp', 'email', 'password', 'point'
     ];
 
     public function RelasiToKelas(){
-        return $this->belongsTo('App\Models\kelas' ,'id');  
+        return $this->belongsTo(kelas::class ,'kelas_id');  
     }
 
     public function RelasiToGuru2(){
         return $this->belongsTo('App\Models\guru' ,'id');  
     }
 
-    public function RelasiToMuridpelanggaran() {
-        return $this->belongsToMany(pelanggaran::class, 'pelanggaran', 'point');  
-    }
+    
 }

@@ -24,7 +24,7 @@ class kelas extends Model
     }
 
     public function RelasiToGuru(){
-        return $this->belongsTo(guru::class, 'guru_id' );
+        return $this->belongsTo(Guru::class, 'guru_id' );
     }
 
     // public  function guru() {

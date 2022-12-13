@@ -20,10 +20,11 @@ return new class extends Migration
             $table->integer('nisn');
             $table->string('jenis_kelamin');
             $table->string('alamat');
-            $table->integer('no_telp');
+            $table->string('no_telp');
             $table->string('email');
             $table->string('password');
-            $table->foreign('kelas_id')->references('id')->on('kelas');
+            $table->integer('point');
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             
             $table->timestamps();
 

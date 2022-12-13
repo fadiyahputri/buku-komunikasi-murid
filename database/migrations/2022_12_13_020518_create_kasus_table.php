@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('murid_pelanggaran', function (Blueprint $table) {
-            $table->unsignedBigInteger('nama_murid');
-            $table->foreign('nama_murid')->references('id')->on('murid')->onDelete('restrict');
-            $table->unsignedBigInteger('pelanggaran');
-            $table->foreign('pelanggaran')->references('id')->on('pelanggaran')->onDelete('restrict');
-            $table->unsignedBigInteger('point');
-            $table->foreign('point')->references('id')->on('pelanggaran')->onDelete('restrict');
+        Schema::create('kasus', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('murid_id');
+            $table->unsignedBigInteger('pelanggaran_id');
+            $table->dateTimeTz('tanggal');
+           
+
+            $table->foreign('murid_id')->references('id')->on('murid')->onDelete('cascade');
+            $table->foreign('pelanggaran_id')->references('id')->on('pelanggaran')->onDelete('cascade');
             $table->timestamps();
             // $table->unsignedBigInteger('point_id');
             // $table->unsignedBigInteger('sanksi_id');
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('murid_pelanggaran');
+        Schema::dropIfExists('kasus');
     }
 };

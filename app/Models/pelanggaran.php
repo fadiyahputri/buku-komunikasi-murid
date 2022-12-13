@@ -10,8 +10,8 @@ class pelanggaran extends Model
     public $table = "pelanggaran";
     protected $guarded=['id'];
 
-    // public function RelasiToDatakasus() {
-    //     return $this->belongsToMany('App\Models\muridpelanggaran', 'id', 'pelanggaran', 'point' );  
-    // }
+    public function RelasiTomurids() {
+        return $this->belongsToMany('App\Models\murid');  
+    }
 }
 

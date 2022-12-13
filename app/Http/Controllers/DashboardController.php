@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kasus;
+use App\Models\Kasus_murid;
+use App\Models\Kasus_pelanggaran;
 use App\Models\murid;
+use App\Models\murid_pelanggaran;
 use App\Models\muridpelanggaran;
 use App\Models\pelanggaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use function GuzzleHttp\Promise\all;
 
 class DashboardController extends Controller
 {
@@ -13,10 +20,11 @@ class DashboardController extends Controller
     public function index()
     {
         
-        $muridpelanggaran = muridpelanggaran::with('RelasiToMurid', 'RelasiToPelanggaran')->get();
+       
         $pelanggaran = pelanggaran::all();
         $murid = murid::all();
-        return view('admin.dashboard', compact(['muridpelanggaran', 'pelanggaran', 'murid']));
+        $kasus = Kasus::all();
+        return view('admin.dashboard', compact(['pelanggaran', 'murid','kasus']));
     }
 
     /**
@@ -37,12 +45,35 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        muridpelanggaran::create([
-            'nama_murid' => $request -> nama_murid,
-            'pelanggaran' => $request -> pelanggaran,
-            'point' => $request -> point,
+        
+        Kasus::create([
+            'murid_id' => $request->nama,
+            'pelanggaran_id'=>$request->pel, 
+            'tanggal'=>$request->tanggal,
         ]);
+
+        $data = DB::table('kasus')->orderBy('id', 'DESC')->limit(1)->get()->pluck('id')->first();
+      
+
+        Kasus_murid::create([
+            'kasus_id'=>$data,
+            'murid_id'=>$request->nama
+        ]);
+
+        Kasus_pelanggaran::create([
+            'kasus_id'=>$data,
+            'pelanggaran_id'=>$request->pel
+        ]);
+        $doc = murid::findOrFail($request->nama);
+        $docs = pelanggaran::findOrFail($request->pel);
+        $dok = $docs->point;
+        $doks = $doc->point;
+        $plus = $doks + $dok;
+
+        $doc->update([
+            'point' => $plus,
+        ]);
+
         return redirect('/dashboard')->with('toast_succes', 'Data Berhasil ditambah');
     }
 
@@ -88,8 +119,9 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
-        $mp = muridpelanggaran::findorfail($id);
-        $mp->delete();
+        
+        $data = Kasus::findOrFail($id);
+        $data->delete();
         return back()->with('info', 'Data Berhasil Dihapus');
     }
 }

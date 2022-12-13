@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class guru extends Model
+class Guru extends Model
 {
-
+    use HasFactory;
     public $table = "gurus";
     protected $primarykey = "id";
     protected $fillable = [
@@ -21,11 +21,4 @@ class guru extends Model
     public function RelasiToKelas(){
         return $this->hasMany('App\Models\kelas');
     }
-    // public function kelas(){
-    //     return $this->hasMany('App\Models\kelas');
-    // }
-
-    // public function kelas(){
-    //     return $this->hasOne('App\Models\kelas');
-    // }
 }

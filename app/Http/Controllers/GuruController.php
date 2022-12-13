@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\guru;
+use App\Models\Guru;
 use App\Models\kelas;
 use com_exception;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $guru = guru::all();
+        $guru = Guru::all();
         return view('admin.guru.guru', compact('guru'));
     }
 
@@ -40,7 +40,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        guru::create([
+        Guru::create([
             'nama_guru' => $request -> nama_guru,
             'mata_pelajaran' => $request -> mata_pelajaran,
             'email' => $request -> email,
@@ -71,7 +71,7 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $g = guru::findorfail($id);
+        $g = Guru::findorfail($id);
         return view ('templated.modal.modalupdateguru', compact('g'));
     }
 
@@ -84,7 +84,7 @@ class GuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $g = guru::findorfail($request -> id);
+        $g = Guru::findorfail($request -> id);
         $g -> update($request->all());
         return redirect('/guru')->with('toast_succes', 'Data Berhasil Update');
     }
@@ -97,7 +97,7 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        $g = guru::findorfail($id);
+        $g = Guru::findorfail($id);
         $g->delete();
         return back()->with('info', 'Data Berhasil Dihapus');
     }
